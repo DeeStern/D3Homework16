@@ -29,8 +29,7 @@ d3.csv("data.csv")
   console.log(data);
 
    
-// Step 1: Parse Data/Cast as numbers
-    // ==============================
+// Parse Data/Cast as numbers
     data.forEach(function(d) {  
         d.obesity = +d.obesity;
         d.poverty = +d.poverty;
@@ -38,8 +37,7 @@ d3.csv("data.csv")
     console.log(data[0]);
   
 
- // Step 2: Create scale functions
-    // ==============================
+ // Create scale functions
       var xLinearScale = d3.scaleLinear()
         .domain([8, d3.max(data, d => d.poverty)])
         .range([8, width]);
@@ -48,8 +46,7 @@ d3.csv("data.csv")
         .domain([18, d3.max(data, d => d.obesity)])
         .range([height, 18]);
 
-       // Step 5: Create Circles
-    // ==============================
+    //Create Circles
     chartGroup.selectAll("circle")
     .data(data)
     .enter()
@@ -60,7 +57,7 @@ d3.csv("data.csv")
     .attr("fill", "teal")
     .attr("opacity", .5)
     
-  
+  //Create circle labels
    chartGroup.selectAll("text")
    .attr("class", "labels")
    .data(data)
@@ -72,13 +69,11 @@ d3.csv("data.csv")
    .attr("x", d => xLinearScale(d.poverty) -10)
    .attr("y", d => yLinearScale(d.obesity) +4)
       
-    // Step 3: Create axis functions
-      // ==============================
+    //Create axis functions
       var bottomAxis = d3.axisBottom(xLinearScale);
       var leftAxis = d3.axisLeft(yLinearScale);
 
-    // Step 4: Append Axes to the chart
-    // ==============================
+    // Append Axes to the chart
       chartGroup.append("g")
         .attr("transform", `translate(10, ${height})`)
         .call(bottomAxis);
